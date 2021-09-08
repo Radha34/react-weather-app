@@ -17,6 +17,7 @@ function App() {
           setWeather(result);
           setQuery('');
           console.log(result);
+          
         });
   }
 }
@@ -38,13 +39,14 @@ function App() {
   return (
 
     <div className={(typeof weather.main != "undefined") ?
-     ((weather.main.temp > 16) ? 'app warm' : 'app'):'app'}>    
+     (((weather.main.temp-273.15) > 16) ? 'app warm' : 'app cold'):'app '}>  
+       
       <main>
         <div className="search-box">
           <input 
           type="text" 
           className="search-bar" 
-          placeholder="Search" 
+          placeholder="Enter City Name" 
           onChange={e => setQuery(e.target.value)} 
           value={query}    
           onKeyPress ={search}/>
@@ -57,7 +59,7 @@ function App() {
             </div>
             <div className ="weather-box">
                 <div className = "temp">                   
-                {(weather.main.temp-273.15).toFixed(2)} C 
+                {(weather.main.temp-273.15).toFixed(2)} °C 
                 </div>
                 <div className = "weather">
                   {weather.weather[0].main}
@@ -65,6 +67,9 @@ function App() {
             </div>
           </div>
          ) : ('')}
+        <div className="footer">
+          <p className="footer-text"> ⓘ World Weather Information</p>
+        </div> 
       </main>
     </div>
   );
